@@ -79,8 +79,8 @@
 .header__opsContainer {
   display: inline-block;
   vertical-align: middle;
-  padding-left: 20px;
-  padding-right: 10px;
+  margin-left: 20px;
+  margin-right: 10px;
 }
 .header__opsContainer__imgContainer {
   display: inline-block;

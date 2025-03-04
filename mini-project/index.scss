@@ -68,7 +68,7 @@
         }
         &__search{
             width: 550px;
-            border: 0px;
+            border: 0px;      
             padding: 10px 0px;
             margin-right: 20px;
             background-color: #e6e6e6;
@@ -77,8 +77,8 @@
     &__opsContainer{
         display: inline-block;
         vertical-align: middle;
-        padding-left: 20px;
-        padding-right: 10px;
+        margin-left: 20px;
+        margin-right: 10px;
         &__imgContainer{
             display: inline-block;
             vertical-align: middle;
