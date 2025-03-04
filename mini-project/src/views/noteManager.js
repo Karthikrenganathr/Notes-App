@@ -129,8 +129,8 @@ export default class noteManagerView{
         window.pinnedCount=0
         notesDiv.innerHTML=content ;
         await noteController.viewNote()
-        expandTitle();
-        headerPinUnpin();
+        this.expandTitle();
+        this.headerPinUnpin();
         noteController.saveNote();
         noteController.closeNote();
     }
