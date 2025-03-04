@@ -1,39 +1,37 @@
-export default class archiveView{
-    constructor() {
-        import("/src/controller/archiveController.js").then((module) => {
-            this.archiveManager = new module.default(); 
-        });
-    }
+export default class archiveView {
 
-    viewArchive(archiveNotes) {
-        console.log("check", archiveNotes);
-        let containerDiv = document.querySelector(".notes__archive__noteCon");
-        containerDiv.innerHTML = "";  
-        archiveNotes.notes.forEach(note => {
-            const newNote = this.createNote(note.title, note.text, note.id);
-            containerDiv.prepend(newNote);
-            newNote.querySelector(".note__options img:nth-child(1)").addEventListener("click", () => {
-                if (this.archiveManager) {
-                    this.archiveManager.permanentDelte(note.id);
-                } else {
-                    console.error("archiveManager is not initialized yet.");
-                }
-            });
-            newNote.querySelector(".note__options img:nth-child(2)").addEventListener("click", () => {
-                if (this.archiveManager) {
-                    this.archiveManager.restore(note.id);
-                } else {
-                    console.error("archiveManager is not initialized yet.");
-                }
-            });
-        });
-    }
-    
-    createNote(title, description,id){
-        const noteDiv = document.createElement("div");
-        noteDiv.classList.add("note");
-        noteDiv.setAttribute("noteId", id);
-        noteDiv.innerHTML = `
+  constructor() {
+    import("/src/controller/archiveController.js").then((module) => {
+      this.archiveManager = new module.default();
+    });
+  }
+
+  viewArchive(archiveNotes) {
+    console.log("check", archiveNotes);
+    let containerDiv = document.querySelector(".notes__archive__noteCon");
+    archiveNotes.notes.forEach((note) => {
+      const newNote = this.createNote(note.title, note.text, note.id);
+      containerDiv.prepend(newNote);
+      newNote
+        .querySelector(".note__options img:nth-child(1)")
+        .addEventListener(
+          "click",
+          this.archiveManager.permanentDelte.bind(null, note.id)
+        );
+      newNote
+        .querySelector(".note__options img:nth-child(2)")
+        .addEventListener(
+          "click",
+          this.archiveManager.restore.bind(null, note.id)
+        );
+    });
+  }
+
+  createNote(title, description, id) {
+    const noteDiv = document.createElement("div");
+    noteDiv.classList.add("note");
+    noteDiv.setAttribute("noteId", id);
+    noteDiv.innerHTML = `
             <div>
                 <div class="note__heading">${title}</div>
             </div>
@@ -43,6 +41,7 @@ export default class archiveView{
                 <img src="../../img/delete notes/reestore.svg" alt="restore" class="note__options__img">
             </div>
         `;
-        return noteDiv;
-    }
+    return noteDiv;
+  }
+  
 }
