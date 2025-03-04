@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>Test Mini Project</title>
+        <script type="module" src="./src/index.js"></script>
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <div class="notepg">
+            <div class="header">
+                <div class="header__menuBarContainer header--divCircle">
+                    <img src="./img/main_menu.svg" class="header__menuBarContainer__bar">
+                </div>
+                <div class="header__logo"> 
+                    <div class="header__logo__imgContainer">
+                        <img src="./img/keeplogo.png" class="header__logo_imgContainer__logoimg">
+                    </div>
+                    <div class="header__logo__appName">
+                        Keep
+                    </div>
+                </div>
+                <div class="header__searchContainer">
+                    <div class="header__searchContainer__imgCon header--divCircle">
+                        <img class="header__searchContainer__imgCon__img" src="./img/search.svg" >
+                    </div>
+                    <input type="text" class="header__searchContainer__search" placeholder="search">
+                </div>
+                <div class="header__opsContainer">
+                    <div class="header__opsContainer__imgContainer header--divCircle">
+                        <img src="./img/reload.svg" class="header__opsContainer__imgContainer__img">
+                    </div>
+                    <div class="header__opsContainer__imgContainer header--divCircle">
+                        <img src="./img/setting.svg" class="header__opsContainer__imgContainer__img">
+                    </div>
+                    <div class="header__opsContainer__imgContainer header--divCircle">
+                        <img src="./img/column.svg" class="header__opsContainer__imgContainer__img">
+                    </div>
+                </div>
+                <div class="header__credentials">
+                    <div class="header__credentials__imgContainer header--divCircle">
+                        <img src="./img/moreapps.svg" class="header__credentials__imgContainer__img">
+                    </div>
+                    <div class="header__credentials__imgContainer header--divCircle">
+                        <img src="./img/userlogo.png" class="header__credentials__imgContainer__img">
+                    </div>
+                </div>
+            </div>
+            <div class="sidesection"> 
+                <div class="sidesection__container header--divCircle sidesection__currenthighlighter">
+                    <img src="./img/sidebar/notes.svg" class="sidesection__container__img">
+                </div>
+                <div class="sidesection__container header--divCircle">
+                    <img src="./img/sidebar/delete.svg" class="sidesection__container__img sidesection__decrheight">
+                </div>
+            </div>
+            <div class="notes">
+                <div class="notes__creatediv">
+                    <div class="notes__creatediv__titlediv">
+                        <textarea placeholder="Title" class="notes__creatediv__content__enter notes__creatediv__titlediv__decrheight"></textarea>
+                        <div class="notes__creatediv__titlediv__pinContainer header--divCircle">
+                            <img src="./img/notes/pin.svg" class="notes__creatediv__titlediv__pinContainer__img">
+                        </div>
+                    </div>
+                    <div class="notes__creatediv__content ">
+                        <textarea placeholder="Take a note..." class="notes__creatediv__content__enter"></textarea>
+                    </div>
+                    <div class="notes__creatediv__createOptionscon">
+                        <div class="notes__creatediv__createOptionscon__options">
+
+                        </div>
+                        <div class="notes__creatediv__createOptionscon__closecon">
+                            Close
+                        </div>
+                    </div>
+                </div>
+                <div class="notes__pin">
+                    <div class="notes__pin__text">PINNED</div>
+                    <div class="notes__pin__noteCon">
+                    </div>
+                </div>
+                <div class="notes__unpin">
+                    <div class="notes__unpin__text">OTHERS</div>
+                    <div class="notes__unpin__noteCon">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="enlarged">
+            <div class="enlarged__note">
+                <div>
+                    <div class="enlarged__note__heading" contenteditable="true">
+                    </div>
+                    <div class="enlarged__note__imgcontainer">
+                        <img src='./img/note/pin.svg'  alt="pin image" class="enlarged__note__imgcontainer__img">
+                    </div>
+                </div>
+                <div class="enlarged__note__mainnote" contenteditable="true">
+                </div>
+                <div class="enlarged__note__options">
+                    <img src="./img/note/notification.svg" alt="alert image" class="note__options__img start">
+                    <img src="./img/note/contact.svg" alt="alert image" class="note__options__img">
+                    <img src="./img/note/themes.svg" alt="alert image" class="note__options__img">
+                    <img src="./img/note/photo.svg" alt="alert image" class="note__options__img">
+                    <img src="./img/note/archive.svg" alt="alert image" class="note__options__img">
+                    <img src="./img/note/more.svg" alt="alert image" class="note__options__img">
+                    <div class="enlarged__note__options__close">
+                        close
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
