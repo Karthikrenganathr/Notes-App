@@ -9,23 +9,24 @@ export default class archiveView {
   viewArchive(archiveNotes) {
     console.log("check", archiveNotes);
     let containerDiv = document.querySelector(".notes__archive__noteCon");
+    containerDiv.innerHTML = ""; 
     archiveNotes.notes.forEach((note) => {
       const newNote = this.createNote(note.title, note.text, note.id);
-      containerDiv.prepend(newNote);
+      containerDiv.prepend(newNote); 
       newNote
         .querySelector(".note__options img:nth-child(1)")
         .addEventListener(
           "click",
-          this.archiveManager.permanentDelte.bind(null, note.id)
+          this.archiveManager.permanentDelte.bind(this.archiveManager, note.id) 
         );
       newNote
         .querySelector(".note__options img:nth-child(2)")
         .addEventListener(
           "click",
-          this.archiveManager.restore.bind(null, note.id)
+          this.archiveManager.restore.bind(this.archiveManager, note.id) 
         );
     });
-  }
+}
 
   createNote(title, description, id) {
     const noteDiv = document.createElement("div");
@@ -43,5 +44,5 @@ export default class archiveView {
         `;
     return noteDiv;
   }
-  
+
 }
