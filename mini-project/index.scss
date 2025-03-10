@@ -50,6 +50,7 @@
     &__searchContainer{
         display: inline-block;
         vertical-align: middle;
+        width: 50%;
         border-radius: 5px;
         background-color: #e6e6e6;
         margin: 5px 0px;
@@ -67,7 +68,7 @@
             }
         }
         &__search{
-            width: 550px;
+            width: 70%;
             border: 0px;      
             padding: 10px 0px;
             margin-right: 20px;
