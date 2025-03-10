@@ -1,17 +1,16 @@
 import NoteManager from "../controller/noteManager.js";
 const noteController = new NoteManager();
 const toolbarOptions = [
-    [{ font: [] }],
-    [{ header: [1, 2, 3] }],
-    ["bold", "italic", "underline", "strike"],
-    [{ color: [] }, { background: [] }],
-    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-    ["blockquote", "code-block"],
-    ["link", "image", "video"],
-    [{ align: [] }],
-  ];
+  [{ font: [] }],
+  [{ header: [1, 2, 3] }],
+  ["bold", "italic", "underline", "strike"],
+  [{ color: [] }, { background: [] }],
+  [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+  ["blockquote", "code-block"],
+  ["link", "image", "video"],
+  [{ align: [] }],
+];
 export default class noteManagerView {
-
   expandTitle() {
     const contentDiv = document.querySelector(
       ".notes__creatediv__content .notes__creatediv__content__enter"
@@ -42,11 +41,11 @@ export default class noteManagerView {
       });
   }
 
-  createNoteElement(title, description, id,orderId) {
+  createNoteElement(title, description, id, orderId) {
     const noteDiv = document.createElement("div");
     noteDiv.classList.add("note");
     noteDiv.setAttribute("noteId", id);
-    noteDiv.setAttribute("orderId",orderId);
+    noteDiv.setAttribute("orderId", orderId);
     noteDiv.setAttribute("draggable", "true");
     noteDiv.innerHTML = `
         <div>
@@ -65,7 +64,7 @@ export default class noteManagerView {
         <img src="./img/note/more.svg" alt="alert image" class="note__options__img">
         </div>
                 `;
-    noteDiv.querySelector('.note__mainnote').innerHTML=description;
+    noteDiv.querySelector(".note__mainnote").innerHTML = description;
     noteDiv
       .querySelector(".note__mainnote")
       .addEventListener("click", () => this.enlargeView(id));
@@ -99,7 +98,12 @@ export default class noteManagerView {
     }
     titleDiv.style.display = "none";
     optionsDiv.style.display = "none";
-    const noteElement = this.createNoteElement(title, description, result.id,result.orderId);
+    const noteElement = this.createNoteElement(
+      title,
+      description,
+      result.id,
+      result.orderId
+    );
     if (isPinned) {
       let img = document.querySelector(
         ".notes__creatediv__titlediv__pinContainer img"
@@ -142,7 +146,7 @@ export default class noteManagerView {
         note.title,
         note.text,
         note.id,
-        note.orderId,
+        note.orderId
       );
       if (note.isPinned) {
         if (window.pinnedCount == 0) {
@@ -188,16 +192,19 @@ export default class noteManagerView {
     let mainNote = hiddenDiv.querySelector(".enlarged__note__mainnote");
     let existingEditor = mainNote.querySelector(".ql-editor");
     if (existingEditor) {
-        document.querySelector(".ql-toolbar.ql-snow")?.remove();
+      document.querySelector(".ql-toolbar.ql-snow")?.remove();
     }
     mainNote.innerHTML = noteElement.querySelector(".note__mainnote").innerHTML;
     hiddenDiv.querySelector(".enlarged__note__heading").textContent =
-        noteElement.querySelector(".note__heading").textContent;
+      noteElement.querySelector(".note__heading").textContent;
     hiddenDiv.setAttribute("noteId", id);
     hiddenDiv.style.display = "inline-block";
-    new Quill(".enlarged__note__mainnote", { theme: "snow" ,modules: {
+    new Quill(".enlarged__note__mainnote", {
+      theme: "snow",
+      modules: {
         toolbar: toolbarOptions,
-      },});
+      },
+    });
   }
   async restoreMain() {
     const notesDiv = document.querySelector(".notes");
@@ -211,16 +218,20 @@ export default class noteManagerView {
     noteController.saveNote();
     noteController.closeNote();
   }
-  clickEditHeader(){
-    document.querySelector('.enlarged__note__heading').addEventListener('click',()=>{
-        if(!window.editHeader){
-            window.editHeader=true;
+  clickEditHeader() {
+    document
+      .querySelector(".enlarged__note__heading")
+      .addEventListener("click", () => {
+        if (!window.editHeader) {
+          window.editHeader = true;
         }
-    })
-    document.querySelector('.enlarged__note__mainnote').addEventListener('click',()=>{
-        if(!window.editNote){
-            window.editNote=true;
+      });
+    document
+      .querySelector(".enlarged__note__mainnote")
+      .addEventListener("click", () => {
+        if (!window.editNote) {
+          window.editNote = true;
         }
-    })
+      });
   }
 }
