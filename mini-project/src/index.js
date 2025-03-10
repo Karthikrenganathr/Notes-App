@@ -13,6 +13,8 @@ window.searchArray=[];
 window.createStartPin=false;
 window.defaultCreateIndex=-1;
 window.draggedElement = null;  
+window.editHeader=false;
+window.editNote=false;
 async function enableMocking() {
    console.log("calling mock");
     // `worker.start()` returns a Promise that resolves
@@ -65,6 +67,7 @@ enableMocking().then(() => {
         window.addEventListener("online",model.syncOfflineNotes);
         noteView.expandTitle();
         noteView.headerPinUnpin();
+        noteView.clickEditHeader()
         noteController.viewNote();
         noteController.saveNote();
         noteController.closeNote();

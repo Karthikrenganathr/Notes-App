@@ -41,15 +41,27 @@ export default class noteManagerController {
           ".enlarged__note__heading"
         ).textContent;
         let content = englargedNote.querySelector(
-          ".enlarged__note__mainnote"
-        ).textContent;
+            ".ql-editor"
+          ).innerHTML;
         let id = englargedNote.getAttribute("noteId");
-        let result = await model.updateNotes(title, content, id);
+        console.log("closenote");
+        let result;
+        if(window.editHeader && window.editNote){
+            result = await model.updateNotes(title, content, id);
+        }
+        else if(window.editHeader){
+            result=await model.updateNotes(title, null, id);
+        }
+        else if(window.editNote){
+            result=await model.updateNotes(null, content, id);
+        }
         let selectedNote = document.querySelector(`.note[noteId="${id}"]`);
-        selectedNote.querySelector(".note__mainnote").textContent =
-          englargedNote.querySelector(".enlarged__note__mainnote").textContent;
+        selectedNote.querySelector(".note__mainnote").innerHTML =
+          content;
         selectedNote.querySelector(".note__heading").textContent =
           englargedNote.querySelector(".enlarged__note__heading").textContent;
+        window.editHeader=false;
+        window.editNote=false;
         englargedNote.removeAttribute("noteId");
         englargedNote.style.display = "none";
       });
