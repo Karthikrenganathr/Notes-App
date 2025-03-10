@@ -362,7 +362,12 @@
 }
 .enlarged__note__options {
   display: inline-block;
+  width: 100%;
   margin-bottom: 10px;
+}
+.enlarged__note__options__option {
+  display: inline-block;
+  width: 80%;
 }
 .enlarged__note__options__img {
   width: 40px;
@@ -373,9 +378,11 @@
 }
 .enlarged__note__options__close {
   display: inline-block;
+  position: absolute;
   vertical-align: top;
+  width: 25%;
+  margin: 0% 3%;
   font-size: 1.1rem;
-  margin-left: 320px;
 }
 
 .dragover {
