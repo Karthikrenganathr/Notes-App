@@ -375,4 +375,8 @@
   vertical-align: top;
   font-size: 1.1rem;
   margin-left: 320px;
+}
+
+.dragover {
+  border: 1px solid red;
 }/*# sourceMappingURL=index.css.map */
