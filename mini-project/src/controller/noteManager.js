@@ -6,7 +6,6 @@ import("/src/views/noteManager.js").then((module) => {
 });
 
 export default class noteManagerController {
-
   constructor() {
     this.pinNote = this.pinNote.bind(this);
     this.unPinNote = this.unPinNote.bind(this);
@@ -74,6 +73,7 @@ export default class noteManagerController {
     let noteElement = document.querySelector(`[noteId='${id}']`);
     let noteImg = noteElement.querySelector(".note__imgcontainer__img");
     let result = await model.pinUnpinNode(id, true);
+    noteElement.setAttribute("orderId", result.orderId);
     if (window.pinnedCount === 0) {
       document.querySelector(".notes__pin").style.display = "inline-block";
     }
@@ -90,6 +90,7 @@ export default class noteManagerController {
     let noteElement = document.querySelector(`[noteId='${id}']`);
     let noteImg = noteElement.querySelector(".note__imgcontainer__img");
     let result = await model.pinUnpinNode(id, false);
+    noteElement.setAttribute("orderId", result.orderId);
     window.pinnedCount--;
     if (window.pinnedCount === 0) {
       document.querySelector(".notes__pin").style.display = "none";
@@ -261,13 +262,13 @@ export default class noteManagerController {
     );
     searchInput.addEventListener("input", debounce(handleSearch, 500));
   }
-  
-  //want to update the logic
   handleDragStart(e) {
     this.style.opacity = "0.4";
     window.draggedElement = this;
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", this.getAttribute("noteId"));
+    window.initialOrderId = this.getAttribute("orderId");
+    window.initialParentContainer = this.parentElement.className;
   }
 
   handleDragOver(e) {
@@ -284,29 +285,31 @@ export default class noteManagerController {
     this.classList.remove("dragover");
   }
 
-  handleDrop(e) {
+  async handleDrop(e) {
     if (e.stopPropagation) e.stopPropagation();
-
     let noteId = e.dataTransfer.getData("text/plain");
     let droppedNote = document.querySelector(`.note[noteId="${noteId}"]`);
-
     if (window.draggedElement !== this) {
       let sourceContainer = window.draggedElement.parentElement;
       let targetContainer = this.parentElement;
-
       if (sourceContainer !== targetContainer) {
         return false;
       }
-
       if (targetContainer && window.draggedElement) {
-        let allNotes = Array.from(targetContainer.children);
-        let draggedIndex = allNotes.indexOf(window.draggedElement);
-        let targetIndex = allNotes.indexOf(this);
-
-        if (draggedIndex < targetIndex) {
-          targetContainer.insertBefore(window.draggedElement, this.nextSibling);
+        let finalOrderId = this.getAttribute("orderId");
+        let finalParentContainer = this.parentElement.className;
+        let result;
+        if (window.initialParentContainer === "notes__pin__noteCon") {
+            result=await model.reorder(window.initialOrderId,finalOrderId,true)
         } else {
-          targetContainer.insertBefore(window.draggedElement, this);
+            console.log("check check")
+            result=await model.reorder(window.initialOrderId,finalOrderId,false)
+        }
+        if(result.success){
+            console.log("reorder result",result);
+            document.querySelector('.'+finalParentContainer).innerHTML="";
+            window.pinnedCount=0;
+            noteView.viewNote(result);
         }
       }
     }
@@ -318,5 +321,8 @@ export default class noteManagerController {
     document.querySelectorAll(".note").forEach((note) => {
       note.classList.remove("dragover");
     });
+    delete window.draggedElement;
+    delete window.initialOrderId;
+    delete window.initialParentContainer;
   }
 }

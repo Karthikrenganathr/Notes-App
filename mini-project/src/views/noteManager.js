@@ -32,10 +32,11 @@ export default class noteManagerView {
       });
   }
 
-  createNoteElement(title, description, id) {
+  createNoteElement(title, description, id,orderId) {
     const noteDiv = document.createElement("div");
     noteDiv.classList.add("note");
     noteDiv.setAttribute("noteId", id);
+    noteDiv.setAttribute("orderId",orderId);
     noteDiv.setAttribute("draggable", "true");
     noteDiv.innerHTML = `
         <div>
@@ -87,7 +88,7 @@ export default class noteManagerView {
     }
     titleDiv.style.display = "none";
     optionsDiv.style.display = "none";
-    const noteElement = this.createNoteElement(title, description, result.id);
+    const noteElement = this.createNoteElement(title, description, result.id,result.orderId);
     if (isPinned) {
       let img = document.querySelector(
         ".notes__creatediv__titlediv__pinContainer img"
@@ -129,7 +130,8 @@ export default class noteManagerView {
       const noteElement = this.createNoteElement(
         note.title,
         note.text,
-        note.id
+        note.id,
+        note.orderId,
       );
       if (note.isPinned) {
         if (window.pinnedCount == 0) {
@@ -191,5 +193,5 @@ export default class noteManagerView {
     noteController.saveNote();
     noteController.closeNote();
   }
-  
+
 }

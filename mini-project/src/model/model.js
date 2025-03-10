@@ -212,3 +212,14 @@ export async function syncOfflineNotes() {
     }
   }
 }
+export async function reorder(intial,final,isPin) {
+  console.log(intial,final,isPin)
+  const url = `${SERVER_URL}/notes/reorder?initial=${intial}&final=${final}&ispin=${isPin}`;
+  const response = await fetch(url, {
+  method: "GET",
+  headers: {
+        "Content-Type": "application/json"
+    }
+  });
+  return await response.json();
+}
