@@ -251,14 +251,31 @@ export default class noteManagerController {
         searchText.split(" ")
       );
       console.log("Search Results:", results);
+      let oneMatch=0;
+      let noMatch=document.querySelector('.noMatch');
+      if(noMatch)
+      {
+        noMatch.remove();
+      }
       results.forEach((result) => {
         let noteElement = document.querySelector(
           `.note[noteid='${result.noteId}']`
         );
         if (noteElement) {
           noteElement.style.display = result.isMatch ? "inline-block" : "none";
+          if(result.isMatch){
+            oneMatch++;
+          }
         }
       });
+      if(oneMatch==0)
+      {
+        const notesContainer = document.querySelector('.notes__unpin__noteCon');
+        const noMatchDiv = document.createElement('div');
+        noMatchDiv.classList.add('noMatch');
+        noMatchDiv.textContent = 'No match found';
+        notesContainer.appendChild(noMatchDiv);
+      }
       if (searchText === "") {
         window.searchArray = [];
       }
