@@ -36,12 +36,13 @@ export default class archiveView {
             <div>
                 <div class="note__heading">${title}</div>
             </div>
-            <div class="note__mainnote">${description}</div>
+            <div class="note__mainnote"></div>
             <div class="note__options">
                 <img src="../../img/delete notes/permanet delete.svg" alt="permanent delete" class="note__options__img start">
                 <img src="../../img/delete notes/reestore.svg" alt="restore" class="note__options__img">
             </div>
         `;
+    noteDiv.querySelector('.note__mainnote').innerHTML=description;
     return noteDiv;
   }
 

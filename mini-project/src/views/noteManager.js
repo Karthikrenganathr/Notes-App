@@ -1,5 +1,15 @@
 import NoteManager from "../controller/noteManager.js";
 const noteController = new NoteManager();
+const toolbarOptions = [
+    [{ font: [] }],
+    [{ header: [1, 2, 3] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ color: [] }, { background: [] }],
+    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+    ["blockquote", "code-block"],
+    ["link", "image", "video"],
+    [{ align: [] }],
+  ];
 export default class noteManagerView {
 
   expandTitle() {
@@ -45,7 +55,7 @@ export default class noteManagerView {
         <img src="./img/note/pin.svg" alt="unpin image" class="note__imgcontainer__img">
         </div>
         </div>
-        <div class="note__mainnote">${description}</div>
+        <div class="note__mainnote"></div>
         <div class="note__options">
         <img src="./img/note/notification.svg" alt="alert image" class="note__options__img start">
         <img src="./img/note/contact.svg" alt="alert image" class="note__options__img">
@@ -55,6 +65,7 @@ export default class noteManagerView {
         <img src="./img/note/more.svg" alt="alert image" class="note__options__img">
         </div>
                 `;
+    noteDiv.querySelector('.note__mainnote').innerHTML=description;
     noteDiv
       .querySelector(".note__mainnote")
       .addEventListener("click", () => this.enlargeView(id));
@@ -174,12 +185,19 @@ export default class noteManagerView {
   enlargeView(id) {
     let noteElement = document.querySelector(`[noteId='${id}']`);
     let hiddenDiv = document.querySelector(".enlarged");
-    hiddenDiv.querySelector(".enlarged__note__mainnote").textContent =
-      noteElement.querySelector(".note__mainnote").textContent;
+    let mainNote = hiddenDiv.querySelector(".enlarged__note__mainnote");
+    let existingEditor = mainNote.querySelector(".ql-editor");
+    if (existingEditor) {
+        document.querySelector(".ql-toolbar.ql-snow")?.remove();
+    }
+    mainNote.innerHTML = noteElement.querySelector(".note__mainnote").innerHTML;
     hiddenDiv.querySelector(".enlarged__note__heading").textContent =
-      noteElement.querySelector(".note__heading").textContent;
+        noteElement.querySelector(".note__heading").textContent;
     hiddenDiv.setAttribute("noteId", id);
     hiddenDiv.style.display = "inline-block";
+    new Quill(".enlarged__note__mainnote", { theme: "snow" ,modules: {
+        toolbar: toolbarOptions,
+      },});
   }
   async restoreMain() {
     const notesDiv = document.querySelector(".notes");
@@ -193,5 +211,16 @@ export default class noteManagerView {
     noteController.saveNote();
     noteController.closeNote();
   }
-
+  clickEditHeader(){
+    document.querySelector('.enlarged__note__heading').addEventListener('click',()=>{
+        if(!window.editHeader){
+            window.editHeader=true;
+        }
+    })
+    document.querySelector('.enlarged__note__mainnote').addEventListener('click',()=>{
+        if(!window.editNote){
+            window.editNote=true;
+        }
+    })
+  }
 }
