@@ -361,12 +361,12 @@
             &__option{
                 display: inline-block;
                 width: 80%;
-            }
-            &__img{
-                width: 40px;
-                margin-right: 25px;
-                &:hover {
-                    transform: scale(1.2); 
+                &__img{
+                    width: 25px;
+                    margin-right: 25px;
+                    &:hover {
+                        transform: scale(1.2); 
+                    }
                 }
             }
             &__close{

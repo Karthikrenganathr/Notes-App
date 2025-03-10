@@ -369,11 +369,11 @@
   display: inline-block;
   width: 80%;
 }
-.enlarged__note__options__img {
-  width: 40px;
+.enlarged__note__options__option__img {
+  width: 25px;
   margin-right: 25px;
 }
-.enlarged__note__options__img:hover {
+.enlarged__note__options__option__img:hover {
   transform: scale(1.2);
 }
 .enlarged__note__options__close {
