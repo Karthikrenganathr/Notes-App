@@ -50,6 +50,7 @@
     &__searchContainer{
         display: inline-block;
         vertical-align: middle;
+        width: 50%;
         border-radius: 5px;
         background-color: #e6e6e6;
         margin: 5px 0px;
@@ -67,7 +68,7 @@
             }
         }
         &__search{
-            width: 550px;
+            width: 70%;
             border: 0px;      
             padding: 10px 0px;
             margin-right: 20px;
@@ -323,7 +324,7 @@
         width: 50%;
         height: 50%;
         cursor: pointer;
-        margin: 15% 30%;
+        margin: 10% 30%;
         background-color: white;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease-in-out;
@@ -355,21 +356,38 @@
         }
         &__options{
             display: inline-block;
+            width: 100%;
             margin-bottom: 10px;
-            &__img{
-                width: 40px;
-                margin-right: 25px;
-                &:hover {
-                    transform: scale(1.2); 
+            background-color: white;
+            &__option{
+                display: inline-block;
+                width: 80%;
+                &__img{
+                    width: 25px;
+                    margin-right: 25px;
+                    &:hover {
+                        transform: scale(1.2); 
+                    }
                 }
             }
             &__close{
                 display: inline-block;
+                position: absolute;
                 vertical-align: top;
+                width: 25%;
+                margin:0% 3%;
                 font-size: 1.1rem;
-                margin-left: 320px;
             }
         }
     }
+}
+.dragover{
+    border: 1px solid red;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    background-color: white;
+}
+.noMatch{
+    font-weight: 800;
 }
 

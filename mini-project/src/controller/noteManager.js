@@ -40,16 +40,23 @@ export default class noteManagerController {
         let title = englargedNote.querySelector(
           ".enlarged__note__heading"
         ).textContent;
-        let content = englargedNote.querySelector(
-          ".enlarged__note__mainnote"
-        ).textContent;
+        let content = englargedNote.querySelector(".ql-editor").innerHTML;
         let id = englargedNote.getAttribute("noteId");
-        let result = await model.updateNotes(title, content, id);
+        console.log("closenote");
+        let result;
+        if (window.editHeader && window.editNote) {
+          result = await model.updateNotes(title, content, id);
+        } else if (window.editHeader) {
+          result = await model.updateNotes(title, null, id);
+        } else if (window.editNote) {
+          result = await model.updateNotes(null, content, id);
+        }
         let selectedNote = document.querySelector(`.note[noteId="${id}"]`);
-        selectedNote.querySelector(".note__mainnote").textContent =
-          englargedNote.querySelector(".enlarged__note__mainnote").textContent;
+        selectedNote.querySelector(".note__mainnote").innerHTML = content;
         selectedNote.querySelector(".note__heading").textContent =
           englargedNote.querySelector(".enlarged__note__heading").textContent;
+        window.editHeader = false;
+        window.editNote = false;
         englargedNote.removeAttribute("noteId");
         englargedNote.style.display = "none";
       });
@@ -244,14 +251,31 @@ export default class noteManagerController {
         searchText.split(" ")
       );
       console.log("Search Results:", results);
+      let oneMatch=0;
+      let noMatch=document.querySelector('.noMatch');
+      if(noMatch)
+      {
+        noMatch.remove();
+      }
       results.forEach((result) => {
         let noteElement = document.querySelector(
           `.note[noteid='${result.noteId}']`
         );
         if (noteElement) {
           noteElement.style.display = result.isMatch ? "inline-block" : "none";
+          if(result.isMatch){
+            oneMatch++;
+          }
         }
       });
+      if(oneMatch==0)
+      {
+        const notesContainer = document.querySelector('.notes__unpin__noteCon');
+        const noMatchDiv = document.createElement('div');
+        noMatchDiv.classList.add('noMatch');
+        noMatchDiv.textContent = 'No match found';
+        notesContainer.appendChild(noMatchDiv);
+      }
       if (searchText === "") {
         window.searchArray = [];
       }
@@ -300,16 +324,24 @@ export default class noteManagerController {
         let finalParentContainer = this.parentElement.className;
         let result;
         if (window.initialParentContainer === "notes__pin__noteCon") {
-            result=await model.reorder(window.initialOrderId,finalOrderId,true)
+          result = await model.reorder(
+            window.initialOrderId,
+            finalOrderId,
+            true
+          );
         } else {
-            console.log("check check")
-            result=await model.reorder(window.initialOrderId,finalOrderId,false)
+          console.log("check check");
+          result = await model.reorder(
+            window.initialOrderId,
+            finalOrderId,
+            false
+          );
         }
-        if(result.success){
-            console.log("reorder result",result);
-            document.querySelector('.'+finalParentContainer).innerHTML="";
-            window.pinnedCount=0;
-            noteView.viewNote(result);
+        if (result.success) {
+          console.log("reorder result", result);
+          document.querySelector("." + finalParentContainer).innerHTML = "";
+          window.pinnedCount = 0;
+          noteView.viewNote(result);
         }
       }
     }
