@@ -2,7 +2,6 @@ import * as model from "../model/model.js";
 import ArchiveView from "../views/archiveView.js";
 const archiveView = new ArchiveView();
 export default class archiveController {
-
   archiveSection() {
     console.log("HI");
     const archiveClick = document.querySelector(
@@ -43,7 +42,7 @@ export default class archiveController {
       }
     });
   }
-  
+
   async permanentDelte(id) {
     let noteElement = document.querySelector(`[noteId='${id}']`);
     if (noteElement) {
